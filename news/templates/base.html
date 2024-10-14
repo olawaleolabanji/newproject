@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    
+    {% block links %}
+
+    {% endblock %}
+    
+</head>
+    <nav>
+        <ul>
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li><a href="{% url 'news' %}">News</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'blogs' %}">Blogs</a></li>
+            <li><a href="{% url 'create' %}">Add blog</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">Signup</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% if user.is_authenticated %}
+    <p>Hello {{user.username}}</p>
+    {% endif %}
+    <hr>
+<main>
+    {% for message in messages %}
+     <p class = '{{ message.tags}}'>{{ message }}</p>
+    {% endfor %}
+    {% block main %}
+    {% endblock main %}
+</main>
+<footer>This is the footer, thanks for reachingout to us
+    leave us with your comment
+</footer>
+</body>
+</html>

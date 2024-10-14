@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+ <link rel="stylesheet" href="{% static 'css/read.css' %}">
+{% endblock link %}
+
+{% block main %}
+ <div class ="img_wrap">
+    <img src="{{ blog.image.url}}">
+ </div>
+ <h2 class ="title">{{ blog.title}}</h2>
+ <p class ="body">{{blog.body}}</p>
+ <p class = "date">created at {{blog.created.at}}</p>
+ <h4>Add your comment </h4>
+ <form method = 'POST'>
+   {% csrf_token %}
+   <textarea name="comment" placeholder="add your comment"></textarea>
+   <button>Submit</button>
+ </form>
+ <div class="blog-comments">
+   {% for comment in comments %}
+    <p>{{comment.body }}</p>
+    <p>By {{ comment.owner.username}}</p>
+    on {{ comment.created_at}}
+    <hr>
+   {% endfor %}
+ </div>
+{% endblock main %}

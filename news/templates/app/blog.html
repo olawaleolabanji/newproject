@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/news.css' %}">
+{% endblock %}
+
+
+{% block main %}
+<h3>My blogs</h3>
+<div class = "all_blogs">
+ {% for item in my_blogs %}
+    <div class = "single_blog">
+        <div class = "image_wrap">
+            <img src = "{{ item.image.url}}"  alt = "image">
+        </div>
+        <div class = "blog_buttom">
+            <p class = "title_text">{{item.title}}</p>
+         <a href="{% url 'read' item.id %}"><button>Read</button></a>
+         <a href="{% url 'edit' item.id %}"><button>Edit</button></a>
+         <a href="{% url 'delete' item.id %}"><button>Delete</button></a>
+        </div>
+    </div>
+   {% endfor%}
+</div>
+
+
+<h3>Other blogs</h3>
+<div class = "all_blogs">
+ {% for item in other_blogs %}
+    <div class = "single_blog">
+        <div class = "image_wrap">
+            <img src = "{{ item.image.url}}"  alt = "image">
+        </div>
+        <div class = "blog_buttom">
+            <p class = "title_text">{{item.title}}</p>
+         <a href="{% url 'read' item.id %}"><button>Read</button></a>
+        </div>
+    </div>
+   {% endfor%}
+</div>
+{% endblock main %}

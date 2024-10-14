@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+    <h1>welcome to the new world of an entertainment</h1>
+    <h3>We brings to you different news from the entertainment industry</h3>
+    <h3>Slide through our site for different funny story</h3>
+    <hr>
+    <h2>THANKS FOR YOUR PATROLNAGE</h2>
+ <ol>
+    {% for item in product %}
+      <li> {{item}}</li>
+    {% endfor %}
+</ol>
+<img src="{% static 'assets/img.jpg' %}" alt="image" width="100%">
+{% endblock main %}

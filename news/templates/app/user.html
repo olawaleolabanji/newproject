@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main %}
+<h3> Create a Blog </h3>
+  <form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label> Title: </label><br>
+    <input type="text" name="title"><br>
+    <label> Body: </label> <br>
+    <textarea name="body"> </textarea><br>
+    <label> Image </label><br>
+    <input type="file" name="image"><br>
+    <label> Description </label><br>
+    <textarea name="description"> </textarea><br>
+    <button> Create blog </button>
+  </form>
+
+{% endblock main %}
