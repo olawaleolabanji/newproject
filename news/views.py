@@ -140,6 +140,7 @@ def strong_password(password):
     - Special character (!, @, #, $, etc.)
     """
     pattern = r"^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%#?&])[A-Za-z\d@$!%#?&]{8,128}$"
+    print(re.match(pattern, password), password)
     return bool(re.match(pattern, password))
 
 def signup (request):
@@ -225,7 +226,7 @@ def contact (request):
             to = [email]
         )
         send_email.send()
-        
+
         new_contact = Contact.objects.create(
             name = name,
             email = email,
@@ -242,3 +243,7 @@ def contact (request):
         return redirect(homepage)
 
     return render(request, "app/contact.html")
+def custom_404(request, exception):
+    return render(request, "app/error_404.html", status = 404)
+def custom_500(request):
+    return render(request, "app/error_500.html", status = 500)
