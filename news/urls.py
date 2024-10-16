@@ -11,5 +11,6 @@ urlpatterns = [
     path('edit/<str:id>', edit, name = "edit"),
     path('signup', signup, name= "signup"),
     path("login", login, name = 'login'),
-    path("logout", logout, name='logout')
+    path("logout", logout, name='logout'),
+    path('contact', contact, name = "contact"),
 ] 

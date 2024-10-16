@@ -24,6 +24,7 @@
             <li><a href="{% url 'signup' %}">Signup</a></li>
             <li><a href="{% url 'login' %}">Login</a></li>
             {% endif %}
+            <li><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
     </nav>
     {% if user.is_authenticated %}

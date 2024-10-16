@@ -103,6 +103,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+EMAIL_HOST = config("EMAIL_HOST")
+SERVER_EMAIL = config("SERVER_EMAIL")
+EMAIL_HOST_USER = config("SERVER_EMAIL")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 
 # Internationalization

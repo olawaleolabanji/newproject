@@ -21,4 +21,11 @@ class Comment (models.Model):
     updated_at = models.DateTimeField(auto_now = True)
     def __str__(self):
         return f"{self.owner.username}'S commet on {self.blog.title} on {self.created_at}"
+class Contact (models.Model):
+    name = models.CharField(max_length = 250)
+    email = models.EmailField()
+    message = models.TextField()
+    created = models.DateTimeField(auto_now_add = True)
+    def __str__(self):
+        return f'message from {self.name} on {self.created_at}'
        

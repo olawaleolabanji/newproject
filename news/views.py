@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, reverse
-from news.models import Blog, Comment
+from news.models import Blog, Comment, Contact
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 from django.contrib.auth.decorators import login_required
 import re
+from django.core.mail import EmailMessage
+from django.conf import settings
 # Create your views here.
 
 def homepage(request):
@@ -207,3 +209,36 @@ def login (request):
 def logout(request):
     auth.logout(request)
     return redirect(login)
+
+def contact (request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+        if not name or not email or not message:
+            message.error(request, 'All field require')
+            return redirect(contact)
+        send_email = EmailMessage(
+            subject = "Thank you for reaching out to us ",
+            body = f"HELLO {name},\n\nWe have recieve your message,\n\n One of our staff will contant you in 24hrs\n\nSigned\nCEO",
+            from_email = settings.EMAIL_HOST_USER,
+            to = [email]
+        )
+        send_email.send()
+        
+        new_contact = Contact.objects.create(
+            name = name,
+            email = email,
+            message = message,
+        )
+        send_email = EmailMessage(
+            subject = "New contact us message",
+            body = f"someone filled the form with the following details:\n\nName:{name}\n\nEmail:{email}\n\n\tMessage:{message}",
+            from_email = settings.EMAIL_HOST_USER,
+            to = ['olazdengineer@gmail.com']
+        )
+        send_email.send()
+        messages.success(request, "message sent successfully")
+        return redirect(homepage)
+
+    return render(request, "app/contact.html")
