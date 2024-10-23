@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block main%}
+  <form method="POST">
+    {% csrf_token %}
+    <label>Donate Amounth:</label><br>
+    <input type="number" placeholder="#1,000,000" required name="amount"><br>
+    <label>Email</label><br>
+    <input type="email" placeholder="123@gmail.com" required name="email"><br>
+    <button>Donate</button>
+
+  </form>
+{% endblock main%}

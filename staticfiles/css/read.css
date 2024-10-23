@@ -1,0 +1,14 @@
+.img_wrap{
+    height: 30vw;
+    width: 100vw;
+    padding: 5%;
+    border: 1px solid yellow;
+}
+.img_wrap img{
+    width: 100%;
+    height: 100%;
+}
+.title{
+    text-align: center;
+    margin: 3% 0;
+}

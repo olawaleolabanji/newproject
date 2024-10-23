@@ -16,6 +16,7 @@
         <ul>
             <li><a href="{% url 'homepage' %}">Home</a></li>
             <li><a href="{% url 'news' %}">News</a></li>
+            <li><a href="{% url 'payment' %}">payment</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'blogs' %}">Blogs</a></li>
             <li><a href="{% url 'create' %}">Add blog</a></li>

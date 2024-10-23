@@ -24,8 +24,8 @@ urlpatterns = [
     path('', include ('news.urls')),
     
 ]
-handler404 = 'news.views.custom_404'
-handler500 = 'news.views.custom_500'
-
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'news.views.custom_404'
+handler500 = 'news.views.custom_500'

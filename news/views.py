@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 import re
 from django.core.mail import EmailMessage
 from django.conf import settings
+import requests
+import random
 # Create your views here.
 
 def homepage(request):
@@ -247,3 +249,33 @@ def custom_404(request, exception):
     return render(request, "app/error_404.html", status = 404)
 def custom_500(request):
     return render(request, "app/error_500.html", status = 500)
+def donate(request):
+    if request.method =='POST':
+        email = request.POST.get('email')
+        amount = request.POST.get('amount')
+        if not amount or not email:
+            messages.error(request, 'All Field Required')
+            return redirect(donate)
+        reference = random.randrange(1111111111, 9999999999)
+        amount = int(amount) * 100
+        data = {'email':email, 'amount':amount, 'reference':reference, "callback_url":"http://localhost:8000/verify"}
+        url ='https://api.paystack.co/transaction/initialize'
+        headers = {"authorization": f'Bearer {settings.PAYSTACK_SECRET_KEY}'}
+        req = requests.post(url, headers = headers, data = data)
+        response = req.json()
+        # print(response, data, reference, "abc")
+        if response.get('status'):
+            authorization_url = response["data"].get("authorization_url")
+            if authorization_url:
+                return redirect(authorization_url)
+    return render(request, 'app/payment.html')
+
+def verify(request):
+    reference = request.GET.get('trxref')
+    url = f'https://api.paystack.co/transaction/verify/{reference}'
+    headers = {"authorization": f'Bearer {settings.PAYSTACK_SECRET_KEY}'}
+    req = requests.get(url, headers = headers)
+    response = req.json()
+    if response["status"]:
+        return render(request, 'app/thanks.html')
+    return redirect(donate)
